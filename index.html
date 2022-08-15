@@ -324,7 +324,7 @@
             
             function processProjekter(json, lyr){
                 var att = json.properties;
-                lyr.bindTooltip(
+                lyr.bindPopup(
                     "<h4><strong><center>"+att.Type+"</center></strong></h4>"+
                     "<h5><strong>Lokalitet: </strong>"+att.Lokalitet+"</h5>"+
                     "<h5><strong>Aktører: </strong>"+att.Aktører+"</h5>"+
