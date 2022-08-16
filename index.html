@@ -123,6 +123,10 @@
             padding-top: 20px;
             padding-bottom: 40px;
             }
+            .citiesstyle {
+            color: red;
+            background-color: aquamarine;
+            }
         </style>
     </head>
     <body>
@@ -217,6 +221,7 @@
             var ctlSidebar;
             var ctlEasybutton;
             var lyrProjekter;
+            var lyrCities;
             var stenrev;
             var muslingerev;
             var sandcapping
@@ -225,6 +230,8 @@
             var kystzonen
             var lyrSearch
             var arProjekterIDs = [];
+            var arCityIDs = [];
+
             
     $(document).ready(function(){
 
@@ -235,6 +242,8 @@
                 sandcapping = L.icon({iconUrl:'img/Sandcapping.png', iconSize:[40,40], iconAnchor:[20,20]});
                 aalegraes = L.icon({iconUrl:'img/Ålegræs1.png', iconSize:[40,40], iconAnchor:[20,20]});
                 kystzonen = L.icon({iconUrl:'img/Kyst.png', iconSize:[40,40], iconAnchor:[20,20]});
+                ecoEngineering = L.icon({iconUrl:'img/Eco.png', iconSize:[40,40], iconAnchor:[20,20]});
+
 
         // Her indstilles kortets startposition 
                 mymap = L.map('mapdiv', {center:[56.28, 11], zoom:8, attributionControl:false});
@@ -285,14 +294,21 @@
                         source:arProjekterIDs
                     });
                 });
-                
+
+
+/*cities fra online */
+
+//                $.getJSON('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_populated_places_simple.geojson', function(data) {
+// L.geoJson(data).addTo(mymap);
+//});
+
         /* Onclick function hvor der zoomes til laget ved click*/
 
         lyrProjekter.on('click', function (e) {
             mymap.setView(e.latlng, 10);
                 });
 
-       // Her laves marker og designes popup
+       // Her laves marker
        function returnProjekterMarker(json, latlng){
                 var att = json.properties;
                 if (att.Type=='Stenrev') {
@@ -307,18 +323,20 @@
                 else if (att.Type=='Kystzonen') {
                 var projekttype = kystzonen ;
                 } 
+                else if (att.Type=='Eco Engineering') {
+                var projekttype = ecoEngineering ;
+                }
                 else {
                     var projekttype = sandcapping;
                 }
-                 return L.marker(latlng, {icon:projekttype})
+                return L.marker(latlng, {icon:projekttype})
                 }
             })
             });
             //popdesigner bindTooltip for hvis ved hover, bindPopup for vis ved click
-            
             function processProjekter(json, lyr){
                 var att = json.properties;
-                lyr.bindPopup(
+                lyr.bindPopup(	
                     "<h4><strong><center>"+att.Type+"</center></strong></h4>"+
                     "<h5><strong>Lokalitet: </strong>"+att.Lokalitet+"</h5>"+
                     "<h5><strong>Aktører: </strong>"+att.Aktører+"</h5>"+
@@ -328,6 +346,9 @@
                 );
                arProjekterIDs.push(att.Lokalitet.toString())
             }
+
+  
+
             
          // her laves filter til kortlag - ikke en del af radiobuttons
             function filterProjekter(json){
