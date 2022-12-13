@@ -161,15 +161,15 @@
             <!-- Her styres html og bootstrap for search bar -->
             <div id="divProject" class="col-xs-12">
                 <div id="divProjLabel" class="text-center col-xs-12">
-                    <h4 id="lblProject">Gå på opdagelse i Centerets projekter her</h4>
+                    <h4 id="lblProject">Søg i marine naturgenopretningsprojekter her</h4>
                 </div>
                 <div id="divProjectError" class="errorMsg col-xs-12"></div>
                 <div id="divFindProject" class="form-group">
-                    <div class="col-xs-9">
+                    <div class="col-xs-8">
                         <input type="text" id="txtFindProject" class="form-control" 
                         placeholder="Navn på projekt">
                     </div>
-                <div class="col-xs-3">
+                <div class="col-xs-4">
                     <button id="btnFindproject" class="btn btn-primary btn-block">Søg</button>
                 </div>
             </div>
@@ -178,6 +178,7 @@
                 <h4>
                     <p>
                         ... 
+
                     </p>
                 </h4>
                 
@@ -186,36 +187,38 @@
 
             </div>
             <div id="divFilterProjekter" class="col-xs-12">
-                <div class="col-xs-6">
-                   <input type='radio' name='fltProjekter' value='Alle' checked> Alle
+                <div class="col-xs-12" >
+                   <input  type='radio' name='fltProjekter' value='Alle' checked >  <label  ><img src="img/CMN logo1.png" width="50px" alt="">&nbsp&nbsp&nbsp Alle projekter</label>
                 </div>
-                   <div class="col-xs-6">
+                   <div class="col-xs-12">
                 </div>
-                    <input type='radio' name='fltProjekter' value='Stenrev'> Stenrev
+                    <input type='radio' name='fltProjekter' value='Stenrev'> <label  ><img src="img/Stenrev.png" width="50px" alt="">&nbsp&nbsp&nbsp Stenrev </label> 
                     </div>
-                    <div class="col-xs-6">
-                        <input type='radio' name='fltProjekter' value='Ålegræs'> Ålegræs
+                    <div class="col-xs-12">
+                        <input type='radio' name='fltProjekter' value='Ålegræs' > <label  ><img src="img/Ålegræs1.png" width="50px" alt="">&nbsp&nbsp&nbsp Ålegræs </label> 
                     </div>
-                    <div class="col-xs-6">
-                        <input type='radio' name='fltProjekter' value='Muslingerev'> Muslingerev
+                    <div class="col-xs-12">
+                        <input type='radio' name='fltProjekter' value='Muslingerev'> <label  ><img src="img/muslinger.png" width="50px" alt="">&nbsp&nbsp&nbsp Muslingerev </label> 
                     </div>
-                    <div class="col-xs-6">
-                        <input type='radio' name='fltProjekter' value='Sandcapping'> Sandcapping
+                    <div class="col-xs-12">
+                        <input type='radio' name='fltProjekter' value='Sandcapping'> <label  ><img src="img/Sandcapping.png" width="50px" alt="">&nbsp&nbsp&nbsp Sandcapping </label> 
                     </div>
-                    <div class="col-xs-6">
-                        <input type='radio' name='fltProjekter' value='Eco Engineering'> Eco Engineering
+                    <div class="col-xs-12">
+                        <input type='radio' name='fltProjekter' value='Eco Engineering'> <label  ><img src="img/Eco.png" width="50px" alt="">&nbsp&nbsp&nbsp  Eco Engineering </label> 
                     </div>
-                    <div class="col-xs-6">
-                        <input type='radio' name='fltProjekter' value='Kystzonen'> Kystzonen
+                    <div class="col-xs-12">
+                        <input type='radio' name='fltProjekter' value='Kystzonen'> <label  ><img src="img/Kyst.png" width="50px" alt="">&nbsp&nbsp&nbsp  Kystzonen </label> 
                     </div>
               </div>  
-             <button id='btnLocate' class='btn-lg btn-block zoombtn'>Zoom til start</button><br>
+             <button id='btnLocate' class='btn-lg btn-block zoombtn'>Tilbage til kort</button><br>
 
             <div class"" id="divProjectData" ></div>
         </div>
         <script>
+            
         // Her opretttes variabelerne              
             var mymap;
+            var wmsTopography
             var lyrImagery
             var lyrTopo
             var ctrlLayers
@@ -240,19 +243,21 @@
 
         // Her indstilles ikonerne 
             $(document).ready(function(){
-                stenrev = L.icon({iconUrl:'img/Stenrev.png', iconSize:[40,40], iconAnchor:[20,20]});
-                muslingerev = L.icon({iconUrl:'img/muslinger.png', iconSize:[40,40], iconAnchor:[20,20]});
-                sandcapping = L.icon({iconUrl:'img/Sandcapping.png', iconSize:[40,40], iconAnchor:[20,20]});
-                aalegraes = L.icon({iconUrl:'img/Ålegræs1.png', iconSize:[40,40], iconAnchor:[20,20]});
-                kystzonen = L.icon({iconUrl:'img/Kyst.png', iconSize:[40,40], iconAnchor:[20,20]});
-                ecoEngineering = L.icon({iconUrl:'img/Eco.png', iconSize:[40,40], iconAnchor:[20,20]});
+                stenrev = L.icon({iconUrl:'img/Stenrev.png', iconSize:[30,30], iconAnchor:[20,20]});
+                muslingerev = L.icon({iconUrl:'img/muslinger.png', iconSize:[30,30], iconAnchor:[20,20]});
+                sandcapping = L.icon({iconUrl:'img/Sandcapping.png', iconSize:[30,30], iconAnchor:[20,20]});
+                aalegraes = L.icon({iconUrl:'img/Ålegræs1.png', iconSize:[30,30], iconAnchor:[20,20]});
+                kystzonen = L.icon({iconUrl:'img/Kyst.png', iconSize:[30,30], iconAnchor:[20,20]});
+                ecoEngineering = L.icon({iconUrl:'img/Eco.png', iconSize:[30,30], iconAnchor:[20,20]});
 
 
         // Her indstilles kortets startposition 
                 mymap = L.map('mapdiv', {center:[56.28, 11], zoom:7, attributionControl:false});
                
         //   *********** her oprettes baggrundslag **********      
-                lyrTopo = L.tileLayer.provider('Esri.WorldTopoMap');
+               
+        
+        lyrTopo = L.tileLayer.provider('Esri.WorldTopoMap');
                 lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
         
         //   *********** her oprettes layer control **********      
@@ -264,7 +269,7 @@
 
                 objOverlays = {};
                 ctrlLayers = L.control.layers(objBasemaps,objOverlays).addTo(mymap);
-                mymap.addLayer(lyrImagery);
+             mymap.addLayer(lyrImagery);
 
         //   *********** her oprettes ekstra lag **********          
                 ctlSidebar = L.control.sidebar('sidebardiv').addTo(mymap);
@@ -281,10 +286,15 @@
                 ctlScale = L.control.scale({position:'bottomleft', metric:true,imperial:false, maxWidth:200}).addTo(mymap);
 
         //   *********** her oprettes ekstra lag **********          
-                var dybde = L.esri.dynamicMapLayer({
-                url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",
-            
-            }).addTo(mymap);
+    //    var dybde = L.esri.dynamicMapLayer({url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",}).addTo(mymap);
+
+
+       var wmsTopography = L.tileLayer.wms('https://api.dataforsyningen.dk/ddm?service=WMS?', {layers: 'ddm_50m_dybde_relief' ,  opacity:0.8,     format: 'image/png'
+, transparent: true,
+ zIndex:2}).addTo(mymap);
+
+  
+
 
             
         //   *********** her oprettes kortlag **********
@@ -365,10 +375,12 @@
 
             //er er locate button hvor "hjem" indstilles
             $("#btnLocate").click(function(e){
-                mymap.setView(new L.LatLng(56.28, 9.5),8);
+               mymap.setView(new L.LatLng(56.28, 9.5),8);
+                ctlSidebar.toggle(); 
+                })
 
 
-            })
+            
             
             // er er search funktionen
             $("#txtFindProject").on('keyup paste', function(){
